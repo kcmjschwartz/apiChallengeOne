@@ -10,90 +10,44 @@ let revealUk = document.getElementById('ukList');
 let revealRussia = document.getElementById('russiaList');
 let revealFrance = document.getElementById('franceList');
 
-chinaInfo.addEventListener('click', fetchData);
-usaInfo.addEventListener('click', fetchData2);
-ukInfo.addEventListener('click', fetchData3);
-russiaInfo.addEventListener('click', fetchData4);
-franceInfo.addEventListener('click', fetchData5);
+chinaInfo.addEventListener('click', displayChinaStats);
+usaInfo.addEventListener('click', displayUsaStats);
+ukInfo.addEventListener('click', displayUkStats);
+russiaInfo.addEventListener('click', displayRussiaStats);
+franceInfo.addEventListener('click', displayFranceStats);
 
-//! CHINA FETCH
-function fetchData(e){
-    e.preventDefault();
-    fetch('https://api.covid19api.com/summary')
-.then(results => {
-    // console.log(results);
-    return results.json();
-})
-.then(json => {
-    // console.log(json);
-    displayChinaStats(json);
-        })
-    }       
-//! USA FETCH
-function fetchData2(e){
-    e.preventDefault();
-    fetch('https://api.covid19api.com/summary')        
-.then(results => {
-    // console.log(results);
-    return results.json();
-})
-.then(json => {
-    // console.log(json);
-    displayUsaStats(json);
-        });        
-    }
- //! UK FETCH   
-function fetchData3(e){
-    e.preventDefault();
-    fetch('https://api.covid19api.com/summary')        
-.then(results => {
-    // console.log(results);
-    return results.json();
-})
-.then(json => {
-    // console.log(json);
-    displayUkStats(json);
-        });        
-    }
- //! RUSSIA FETCH   
-function fetchData4(e){
-    e.preventDefault();
-    fetch('https://api.covid19api.com/summary')        
-.then(results => {
-    // console.log(results);
-    return results.json();
-})
-.then(json => {
-    // console.log(json);
-    displayRussiaStats(json);
-        });        
-    }
- //! FRANCE FETCH      
-function fetchData5(e){
-    e.preventDefault();
-    fetch('https://api.covid19api.com/summary')        
-.then(results => {
-    // console.log(results);
-    return results.json();
-})
-.then(json => {
-    // console.log(json);
-    displayFranceStats(json);
-        });        
-    }
+
+let dataArray = [];
+async function covidInfo( ){
+   let response = await fetch('https://api.covid19api.com/summary');
+//    console.log(response);
+   let covidData = await response.json()
+   console.log(covidData); 
+   dataArray.push(covidData.Countries[35]);
+   dataArray.push(covidData.Countries[59]);
+   dataArray.push(covidData.Countries[180]);
+   dataArray.push(covidData.Countries[181]);
+   dataArray.push(covidData.Countries[140]);
+
+console.log(dataArray); 
+}
+
+covidInfo();
+
 
 //! CHINA DISPLAY      
-function displayChinaStats(json) {
+function displayChinaStats(e){
+    e.preventDefault();
     while (revealChina.firstChild) {
         revealChina.removeChild(revealChina.firstChild);
     };
     console.log('China was clicked');
     document.getElementById('chinaImg').style.display = 'none';
     
-    let chinaTC = json.Countries[35].TotalConfirmed;
+    let chinaTC = dataArray[0].TotalConfirmed;
     console.log('ChinaTC:' + chinaTC);
-    let chinaTD = json.Countries[35].TotalDeaths;
-    let chinaTR = json.Countries[35].TotalRecovered;
+    let chinaTD = dataArray[0].TotalDeaths;
+    let chinaTR = dataArray[0].TotalRecovered;
 
     let chinaStatOne = document.createElement('li');
     let chinaStatTwo = document.createElement('li');
@@ -111,7 +65,9 @@ function displayChinaStats(json) {
 };
 
 //! USA DISPLAY  
-function displayUsaStats(json) {
+function displayUsaStats(e) {
+    e.preventDefault();
+
     while (revealUsa.firstChild) {
         revealUsa.removeChild(revealUsa.firstChild);
     };
@@ -119,10 +75,10 @@ function displayUsaStats(json) {
     console.log("USA was clicked");
     document.getElementById('usaImg').style.display = 'none';
 
-    let usaTC = json.Countries[181].TotalConfirmed;
+    let usaTC = dataArray[3].TotalConfirmed;
     console.log('USATC: ' + usaTC);
-    let usaTD = json.Countries[181].TotalDeaths;
-    let usaTR = json.Countries[181].TotalRecovered;
+    let usaTD = dataArray[3].TotalDeaths;
+    let usaTR = dataArray[3].TotalRecovered;
  
     let usaStatOne = document.createElement('li');
     let usaStatTwo = document.createElement('li');
@@ -140,7 +96,9 @@ function displayUsaStats(json) {
 };
 
 //! UK DISPLAY   
-function displayUkStats(json) {
+function displayUkStats(e) {
+    e.preventDefault();
+
     while (revealUk.firstChild) {
         revealUk.removeChild(revealUk.firstChild);
     };
@@ -148,10 +106,10 @@ function displayUkStats(json) {
     console.log('UK was clicked');
     document.getElementById('ukImg').style.display = 'none';
     
-    let ukTC = json.Countries[180].TotalConfirmed;
+    let ukTC = dataArray[2].TotalConfirmed;
     console.log('UKTC: ' + ukTC);
-    let ukTD = json.Countries[180].TotalDeaths;
-    let ukTR = json.Countries[180].TotalRecovered;
+    let ukTD = dataArray[2].TotalDeaths;
+    let ukTR = dataArray[2].TotalRecovered;
 
     let ukStatOne = document.createElement('li');
     let ukStatTwo = document.createElement('li');
@@ -166,8 +124,11 @@ function displayUkStats(json) {
     revealUk.appendChild(ukStatTwo);
     revealUk.appendChild(ukStatThree);
 };
+
 //! RUSSIA DISPLAY  
-function displayRussiaStats(json) {
+function displayRussiaStats(e) {
+    e.preventDefault();
+
     while (revealRussia.firstChild) {
         revealRussia.removeChild(revealRussia.firstChild);
     };
@@ -175,10 +136,10 @@ function displayRussiaStats(json) {
     console.log('Russia was clicked');
     document.getElementById('russiaImg').style.display = 'none';
 
-    let russiaTC = json.Countries[140].TotalConfirmed;
+    let russiaTC = dataArray[4].TotalConfirmed;
     console.log('RussiaTC:' + russiaTC);
-    let russiaTD = json.Countries[140].TotalDeaths;
-    let russiaTR = json.Countries[140].TotalRecovered;
+    let russiaTD = dataArray[4].TotalDeaths;
+    let russiaTR = dataArray[4].TotalRecovered;
  
     let russiaStatOne = document.createElement('li');
     let russiaStatTwo = document.createElement('li');
@@ -195,17 +156,19 @@ function displayRussiaStats(json) {
 };
 
 //! FRANCE DISPLAY  
-function displayFranceStats(json) {
+function displayFranceStats(e) {
+    e.preventDefault();
+
     while (revealFrance.firstChild) {
         revealFrance.removeChild(revealFrance.firstChild);
     };
     console.log('France was clicked');
     document.getElementById('franceImg').style.display = 'none';
 
-    let franceTC = json.Countries[59].TotalConfirmed;
+    let franceTC = dataArray[1].TotalConfirmed;
     console.log('FranceTC: ' + franceTC);
-    let franceTD = json.Countries[59].TotalDeaths;
-    let franceTR = json.Countries[59].TotalRecovered;
+    let franceTD = dataArray[1].TotalDeaths;
+    let franceTR = dataArray[1].TotalRecovered;
 
     let franceStatOne = document.createElement('li');
     let franceStatTwo = document.createElement('li');
