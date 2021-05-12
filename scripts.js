@@ -31,8 +31,8 @@ function fetchData(e){
     }       
 //! USA FETCH
 function fetchData2(e){
-            e.preventDefault();
-            fetch('https://api.covid19api.com/summary')        
+    e.preventDefault();
+    fetch('https://api.covid19api.com/summary')        
 .then(results => {
     // console.log(results);
     return results.json();
@@ -44,8 +44,8 @@ function fetchData2(e){
     }
  //! UK FETCH   
 function fetchData3(e){
-            e.preventDefault();
-            fetch('https://api.covid19api.com/summary')        
+    e.preventDefault();
+    fetch('https://api.covid19api.com/summary')        
 .then(results => {
     // console.log(results);
     return results.json();
@@ -57,8 +57,8 @@ function fetchData3(e){
     }
  //! RUSSIA FETCH   
 function fetchData4(e){
-            e.preventDefault();
-            fetch('https://api.covid19api.com/summary')        
+    e.preventDefault();
+    fetch('https://api.covid19api.com/summary')        
 .then(results => {
     // console.log(results);
     return results.json();
@@ -70,8 +70,8 @@ function fetchData4(e){
     }
  //! FRANCE FETCH      
 function fetchData5(e){
-            e.preventDefault();
-            fetch('https://api.covid19api.com/summary')        
+    e.preventDefault();
+    fetch('https://api.covid19api.com/summary')        
 .then(results => {
     // console.log(results);
     return results.json();
